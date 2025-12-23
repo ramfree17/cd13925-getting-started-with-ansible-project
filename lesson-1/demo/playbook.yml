@@ -4,7 +4,7 @@
   tasks:
     - name: Example from an Ansible Playbook
       ping:
-        register: ping_output
+      register: ping_output
 
     - name: Output results
       debug:
