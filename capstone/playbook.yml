@@ -1,0 +1,33 @@
+- hosts: aws
+  become: true
+
+  tasks:
+    - name: Install firewalld
+      package: 
+        name: "firewalld"
+        state: present
+
+    - name: Start firewalld
+      service:
+        name: firewalld
+        state: started
+
+    - name: Open the web ports
+      firewalld:
+        port: "{{ item }}/tcp"
+        state: enabled
+        permanent: true
+        immediate: true
+      loop: "{{ ports }}"
+
+    - name: Check web root - companyplus.com
+      command: ls -ld /var/www/html/www.companyplus.com
+      register: companyplus_listing
+      
+      rescue:
+        debug:
+          msg: "[ERROR] /var/www/html/www.companyplus.com does not exists"
+
+    - name: Display web root listing - companyplus.com
+      debug:
+        msg: "[INFO] /var/www/html/www.companyplus.com exists"

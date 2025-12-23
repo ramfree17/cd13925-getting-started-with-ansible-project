@@ -1,0 +1,4 @@
+web_package: "httpd"
+ports: 
+  - 80
+  - 443
