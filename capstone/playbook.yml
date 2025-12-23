@@ -20,16 +20,3 @@
         immediate: true
       loop: "{{ ports }}"
 
-    - name: Check web root - companyplus.com
-      block:
-        - name: List webroot directory
-          command: ls -ld /var/www/html/www.companyplus.com
-          register: companyplus_listing
-      
-      rescue:
-        debug:
-          msg: "[ERROR] /var/www/html/www.companyplus.com does not exists"
-
-    - name: Display web root listing - companyplus.com
-      debug:
-        msg: "[INFO] /var/www/html/www.companyplus.com exists"
