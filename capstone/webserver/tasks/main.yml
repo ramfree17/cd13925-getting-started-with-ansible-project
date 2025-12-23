@@ -1,0 +1,39 @@
+
+
+- name: Install Nginx
+  package:
+    name: "{{ web_server }}"
+    state: present
+    #state: absent
+  notify: Restart WebServer
+
+- name: Create Nginx group
+  group:
+      name: nginx
+      state: present
+
+- name: Create Nginx user
+  user:
+      name: nginx
+      comment: "Nginx Service User"
+      shell: /bin/false
+      group: nginx
+      create_home: false
+      state: present
+
+- name: Create web root directories
+  file:
+      path: "{{ document_root }}/{{ item }}"
+      state: directory
+      group: "nginx"
+      owner: "nginx"
+      mode: '770'
+  loop: "{{ web_sites }}"
+
+- name: Deploy configuration file from template
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: "{{ document_root }}/nginx.conf"
+  
+
+
