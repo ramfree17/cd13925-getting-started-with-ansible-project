@@ -21,8 +21,10 @@
       loop: "{{ ports }}"
 
     - name: Check web root - companyplus.com
-      command: ls -ld /var/www/html/www.companyplus.com
-      register: companyplus_listing
+      block:
+        - name: List webroot directory
+          command: ls -ld /var/www/html/www.companyplus.com
+          register: companyplus_listing
       
       rescue:
         debug:
