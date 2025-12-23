@@ -1,9 +1,6 @@
 - hosts: aws
   become: true
+  roles:
+    - common
 
-  tasks:
-    - name: Create directory
-      file:
-        path: /srv/ansible
-        state: directory
 

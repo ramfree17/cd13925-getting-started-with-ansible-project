@@ -1,9 +1,22 @@
-- name: Create ansible directory
-  file:
-    path: "/{{ dir }}"
-    state: directory
+- name: Install firewalld
+  package: 
+    name: "firewalld"
+    state: present
 
-- name: Create ansible udacity directory
-  file:
-    path: "/{{ dir_udacity }}"
-    state: directory
+- name: Start firewalld
+  service:
+    name: firewalld
+    state: started
+
+- name: Open port
+  firewalld:
+    port: "{{ port }}/tcp"
+    state: enabled
+    permanent: true
+    immediate: true
+
+- name: Install Apache
+  package:
+    name: "{{ package }}"
+    state: present
+  notify: Restart Apache

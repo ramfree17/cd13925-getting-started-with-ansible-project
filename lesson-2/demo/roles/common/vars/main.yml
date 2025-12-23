@@ -1,1 +1,2 @@
-dir_udacity: "ansible_course"
+package: "httpd"
+port: 80
