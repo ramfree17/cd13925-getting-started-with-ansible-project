@@ -15,10 +15,10 @@
       
     - name: List all EC2 instances in the current region
       amazon.aws.ec2_instance_info:
-        access_key: ASIASIIREZXJTCVWYOPR
+        access_key: ##replace
         region: us-east-1
-        secret_key: 7G+At9pviVNOYl4nbJRI1zkDBp34eqxZmt3/TMTF
-        session_token: IQoJb3JpZ2luX2VjED8aCXVzLXdlc3QtMiJHMEUCIAfFEmUMUzcWfGPtmdPJ5yztcBastQ2EeqqTn0u08eCUAiEAjH5gS7FPZ6HUkmlkg7ADOc5RlSnEjZvCfjoim2RPyX0qvgIICBADGgwxNTUxOTE2NTk5ODciDDo5sEYIR8LFVvBQeSqbAiW61i2Yg+wo6R0TnvMlpGwKdtaxxSeRsMHzx7aXT4BePqTC8Zagvj4M+2DNGKyBJD+DSEsqPUs6uwjoEj075keDXVUNe6TG49uMEeBCsMzQmDODmdQwgS3wjXXhccxxdlhCwS0Cr/OSxjxoxzfY9FatfUsRF+qbsf+6nqZ6gS41PaNZRZCW5nCS5iQRbDrme7YpTlKAt4gHNfKrB+uQgOsK9hp8hYMMvPFP8z4EwRHghSivEgYGeebAfPUgTP+Qf00v1sDGQLg7vS5pX36Sur+vQb/Y/CF8I5O0laPwfTUACyViYli279GCX6UU0o+fpVpfyTGMvVnCjqBECHzEvutm3COXm7fndnnRnuIQZjQ5UnuHggm4NcutKsgwufCoygY6nQEnW2mppoQ+fqDhed5RvftxA+epwPBPOVajfAWKt7AIHM08dJ1Q2keL4ttT+B176mNfndPG534nnSwosa6x2UPENt8oMdiG7jNr2WTWO4AyOE7a0sS+mquhBulLI1MOoD/KwKHk8rc//K+EPaIm0myAuAWWDBZQgLeQBN6lWhvx7bwroNNXEoJn3JUK/zQMcbZfQp0/kP2FxGtFCEFT
+        secret_key: ##replace
+        session_token: ##replace
       register: ec2_instances
 
     - name: Show EC2 instances
