@@ -1,2 +1,2 @@
-web_package: "httpd"
-ports: "80,443"
+web_server: "nginx"
+ports: [80 , 443]
