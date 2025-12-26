@@ -1,5 +1,13 @@
 - hosts: aws
   become: true
+  roles:
+    - webserver
+
+  vars:
+    web_ports: 
+      - 80
+      - 443
+    web_paths: [ "/tmp/www.companyplus.com" , "/tmp/www.companypulsar.com" ]
 
   tasks:
     - name: Install firewalld
@@ -18,5 +26,20 @@
         state: enabled
         permanent: true
         immediate: true
-      loop: "{{ ports }}"
+      loop: "{{ web_ports }}"
 
+    - name: Check web root - companyplus.com
+      command: ls -ld "{{ web_paths [0] }}"
+      register: companyplus_listing
+      ignore_errors: true
+
+    - name: Display missing web root listing - companyplus.com
+      debug:
+        msg: "[WARN] {{ web_paths [0] }} doesn't exists."
+      when: companyplus_listing.rc > 0
+
+
+    - name: Display web root listing - companyplus.com
+      debug:
+        msg: "[INFO] {{ web_paths [0] }} exists."
+      when: companyplus_listing.rc == 0
