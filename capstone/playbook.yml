@@ -1,6 +1,19 @@
 - hosts: aws
   become: true
 
+  roles:
+    - role: webserver
+      app_root: "html_demo_site_main"
+      server_name: "{{ ansible_default_ipv4.address }}"
+      document_root: "/var/www/html" 
+
+  vars:
+    web_ports: 
+      - 80
+      - 443
+    web_sites: [ "www.companyplus.com" , "www.companypulsar.com" ]
+    web_fs_root: "/var/www/html"
+
   tasks:
     - name: Install firewalld
       package: 
@@ -18,16 +31,20 @@
         state: enabled
         permanent: true
         immediate: true
-      loop: "{{ ports }}"
+      loop: "{{ web_ports }}"
 
     - name: Check web root - companyplus.com
-      command: ls -ld /var/www/html/www.companyplus.com
+      command: ls -ld "{{ web_fs_root }}/{{ web_sites [0] }}"
       register: companyplus_listing
-      
-      rescue:
-        debug:
-          msg: "[ERROR] /var/www/html/www.companyplus.com does not exists"
+      ignore_errors: true
+
+    - name: Display missing web root listing - companyplus.com
+      debug:
+        msg: "[WARN] {{ web_fs_root }}/{{ web_sites [0] }} doesn't exists."
+      when: companyplus_listing.rc > 0
+
 
     - name: Display web root listing - companyplus.com
       debug:
-        msg: "[INFO] /var/www/html/www.companyplus.com exists"
+        msg: "[INFO] {{ web_fs_root }}/{{ web_sites [0] }} exists."
+      when: companyplus_listing.rc == 0
